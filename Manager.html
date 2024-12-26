@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager's Dashboard - ISIRS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+        }
+        header {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: left;
+        }
+        .card h2 {
+            font-size: 1.4rem;
+            color: #fdbb2d;
+            margin-bottom: 10px;
+        }
+        .chart-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            color: #fff;
+        }
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .filter-section {
+            margin-bottom: 15px;
+        }
+        footer {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ccc;
+            font-size: 0.8rem;
+            padding: 10px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #fdbb2d;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e5941c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manager's Dashboard - ISIRS</h1>
+    </header>
+    <main>
+        <!-- Real-Time Statistics -->
+        <div class="card">
+            <h2>Real-Time Statistics</h2>
+            <ul>
+                <li><strong>Open Incidents:</strong> 5</li>
+                <li><strong>Resolved Incidents:</strong> 10</li>
+                <li><strong>Alerts Sent:</strong> 3</li>
+            </ul>
+        </div>
+        <!-- Bar and Pie Charts -->
+        <div class="card">
+            <h2>Charts</h2>
+            <div class="chart-placeholder">Bar Chart Placeholder (Incidents by Type)</div>
+            <div class="chart-placeholder">Pie Chart Placeholder (Incident Status)</div>
+        </div>
+        <!-- Incident Summaries -->
+        <div class="card" style="grid-column: span 3;">
+            <h2>Incident Summaries</h2>
+            <!-- Search and Filters -->
+            <div class="filter-section">
+                <input type="text" placeholder="Search by location or type" style="padding: 8px; width: 30%;">
+                <select style="padding: 8px; margin-left: 10px;">
+                    <option value="">Filter by Status</option>
+                    <option value="open">Open</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="in-progress">In Progress</option>
+                </select>
+                <select style="padding: 8px; margin-left: 10px;">
+                    <option value="">Filter by Type</option>
+                    <option value="theft">Theft</option>
+                    <option value="accident">Accident</option>
+                    <option value="breach">Breach</option>
+                </select>
+                <button style="margin-left: 10px;">Apply Filters</button>
+            </div>
+            <!-- Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Date & Time</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Theft</td>
+                        <td>2024-12-01 10:00 AM</td>
+                        <td>Warehouse A</td>
+                        <td style="color: red;">Open</td>
+                    </tr>
+                    <tr>
+                        <td>Accident</td>
+                        <td>2024-12-02 3:15 PM</td>
+                        <td>Parking Lot</td>
+                        <td style="color: green;">Resolved</td>
+                    </tr>
+                    <tr>
+                        <td>Breach</td>
+                        <td>2024-12-03 1:45 PM</td>
+                        <td>Office Building</td>
+                        <td style="color: orange;">In Progress</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Heat Map -->
+        <div class="card">
+            <h2>Heat Map</h2>
+            <div id="map" class="chart-placeholder">Heat Map Placeholder</div>
+        </div>
+        <!-- Notifications -->
+        <div class="card">
+            <h2>Live Alerts</h2>
+            <p>Real-time notifications for high-priority cases.</p>
+            <button onclick="showNotification()">Test Notification</button>
+        </div>
+        <!-- Generate Report -->
+        <div class="card">
+            <h2>Generate Reports</h2>
+            <p>Download detailed reports for incidents:</p>
+            <button>Download PDF Report</button>
+            <button>Export to Excel</button>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 ISIRS. Privacy Policy | Terms of Service | Contact Us</p>
+    </footer>
+    <script>
+        function showNotification() {
+            alert('This is a test notification!');
+        }
+        // Heatmap Placeholder
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_L-eXlDKSzI1HN8iVrVUlyBO-Z-xQ6S0&callback=initMap" async defer></script>
+</body>
+</html>

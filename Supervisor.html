@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Security Incident Reporting System (ISIRS)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+        }
+        header {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: left;
+        }
+        .card h2 {
+            font-size: 1.4rem;
+            color: #fdbb2d;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: none;
+        }
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+        #map {
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #fdbb2d;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e5941c;
+        }
+        footer {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ccc;
+            font-size: 0.8rem;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Intelligent Security Incident Reporting System (ISIRS)</h1>
+    </header>
+    <main>
+        <!-- Dashboard -->
+        <div class="card">
+            <h2>Dashboard</h2>
+            <p>View real-time statistics, charts, and incident summaries here.</p>
+            <ul>
+                <li><strong>Open Incidents:</strong> 5</li>
+                <li><strong>Resolved Incidents:</strong> 10</li>
+                <li><strong>Alerts Sent:</strong> 3</li>
+            </ul>
+        </div>
+        <!-- Incident Reporting -->
+        <div class="card" style="grid-column: span 2;">
+            <h2>Incident Reporting</h2>
+            <form>
+                <div class="form-group">
+                    <label for="location">Place of Incident</label>
+                    <input type="text" id="location" placeholder="Enter location manually">
+                    <div id="map"></div>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date and Time</label>
+                    <input type="datetime-local" id="date">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type of Incident</label>
+                    <select id="type" onchange="toggleOtherType()">
+                        <option value="theft">Theft</option>
+                        <option value="accident">Accident</option>
+                        <option value="breach">Breach</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group" id="other-type-group" style="display: none;">
+                    <label for="other-type">Specify Other Type</label>
+                    <input type="text" id="other-type" placeholder="Enter other incident type">
+                </div>
+                <div class="form-group">
+                    <label for="reported-by">Name</label>
+                    <input type="text" id="reported-by" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="staff-id">Staff ID</label>
+                    <input type="text" id="staff-id" placeholder="Enter your Staff ID">
+                </div>
+                <div class="form-group">
+                    <label for="contact-info">Contact Information</label>
+                    <input type="text" id="contact-info" placeholder="Phone or Email">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" rows="4" placeholder="Describe the incident"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="actions">Actions Taken</label>
+                    <textarea id="actions" rows="4" placeholder="Describe actions taken"></textarea>
+                </div>
+                <!-- Upload Picture -->
+                <div class="form-group">
+                    <label for="upload-picture">Upload Pictures (optional)</label>
+                    <input type="file" id="upload-picture" accept="image/*" multiple>
+                </div>
+                <!-- Upload Video -->
+                <div class="form-group">
+                    <label for="upload-video">Upload Videos (optional)</label>
+                    <input type="file" id="upload-video" accept="video/*">
+                </div>
+                <button type="submit">Submit Report</button>
+            </form>
+        </div>
+        <!-- Notifications -->
+        <div class="card">
+            <h2>Live Alerts</h2>
+            <p>Real-time notifications for high-priority cases.</p>
+            <button onclick="showNotification()">Test Notification</button>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 ISIRS. Privacy Policy | Terms of Service | Contact Us</p>
+    </footer>
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+
+            const marker = new google.maps.Marker({
+                position: { lat: -34.397, lng: 150.644 },
+                map: map,
+                draggable: true,
+            });
+
+            marker.addListener("dragend", () => {
+                const position = marker.getPosition();
+                document.getElementById("location").value = `${position.lat()}, ${position.lng()}`;
+            });
+        }
+
+        function toggleOtherType() {
+            const typeSelect = document.getElementById('type');
+            const otherTypeGroup = document.getElementById('other-type-group');
+            if (typeSelect.value === 'other') {
+                otherTypeGroup.style.display = 'block';
+            } else {
+                otherTypeGroup.style.display = 'none';
+            }
+        }
+
+        function showNotification() {
+            alert('This is a test notification!');
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_L-eXlDKSzI1HN8iVrVUlyBO-Z-xQ6S0&callback=initMap" async defer></script>
+</body>
+</html>

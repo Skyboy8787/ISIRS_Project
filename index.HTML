@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISIRS Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #fdbb2d;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #fdbb2d;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #e5941c;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>ISIRS Login</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Select Role</label>
+                <select id="role">
+                    <option value="supervisor">Supervisor</option>
+                    <option value="manager">Manager</option>
+                </select>
+            </div>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            // Predefined credentials for Supervisor and Manager
+            const credentials = {
+                supervisor: {
+                    username: "supervisor1",
+                    password: "password123"
+                },
+                manager: {
+                    username: "manager1",
+                    password: "password456"
+                }
+            };
+
+            if (role === 'supervisor') {
+                // Validate credentials for supervisor
+                if (username === credentials.supervisor.username && password === credentials.supervisor.password) {
+                    alert('Login successful! Redirecting to Supervisor page...');
+                    window.location.href = 'Supervisor new.html'; // Supervisor page
+                } else {
+                    alert('Invalid username or password for Supervisor.');
+                }
+            } else if (role === 'manager') {
+                // Validate credentials for manager
+                if (username === credentials.manager.username && password === credentials.manager.password) {
+                    alert('Login successful! Redirecting to Manager dashboard...');
+                    window.location.href = 'ISIRS 7.html'; // Manager dashboard
+                } else {
+                    alert('Invalid username or password for Manager.');
+                }
+            } else {
+                alert('Please select a valid role.');
+            }
+        }
+    </script>
+</body>
+</html>
